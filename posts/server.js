@@ -18,14 +18,14 @@ app.post('/post',async (req,res)=>{
     req.body['id']=id;
     posts[id]=req.body;
     try{
-        await axios.post('http://localhost:5005/events',{
+        await axios.post('http://event-bus-serv:5005/events',{
             type:'PostCreated',
             data:{
                 ...req.body
             }
         });
-    }catch{
-        console.log("errooror")
+    }catch(error){
+        console.log("errooror",error)
     }
     res.json(posts);
 })
@@ -39,4 +39,4 @@ app.post('/events',(req,res)=>{
 })
 
 
-app.listen(5000, ()=>console.log("statrted at 5000"));
+app.listen(5000, ()=>console.log("statrted at 5000 v66"));
