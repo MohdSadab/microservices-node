@@ -47,18 +47,28 @@ app.get('/posts',(req,res)=>{
 app.post('/events',(req,res)=>{
 
     const {type,data}= req.body;
-    eventHandler(type,data)
+    console.log(type,data,">>>> type and data")
+    try{
+        eventHandler(type,data)
+        
+    }catch(err){
+        console.log("events err query",err)
+    }
     res.json({msg:'OK'});
 })
 
 app.listen(5002, async ()=>{
 
     // handle the missing events during the service down 
-    const {data} = await axios.get('http://localhost:5005/events');
-
-    for(let curr of data){
-        console.log(curr.type)
-        eventHandler(curr.type,curr.data)
-    }
+    // try{
+    console.log("started at 5002 v3")
+    // const {data} = await axios.get('http://event-bus-serv:5000/events');
+    // for(let curr of data){
+    //     console.log(curr.type)
+    //     eventHandler(curr.type,curr.data)
+    // }
+    // }catch(error){
+    //     console.log(error,"from query")
+    // }
 
 });

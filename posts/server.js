@@ -13,7 +13,7 @@ const posts ={};
 app.get('/posts',(req,res)=>{
     res.json(posts);
 })
-app.post('/post',async (req,res)=>{
+app.post('/post/create',async (req,res)=>{
     const id= uuid();
     req.body['id']=id;
     posts[id]=req.body;

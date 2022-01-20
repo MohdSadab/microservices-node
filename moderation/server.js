@@ -14,13 +14,14 @@ app.post('/events',(req,res)=>{
 
     const {type,data}= req.body;
     const {id} =data;
+    console.log("heellllll>>>> moderation",data)
     switch(type){
 
         case 'CommentCreated':
             const {content}=data;
             console.log(content)
             setTimeout(async ()=>{
-                await axios.post('http://localhost:5005/events',{
+                await axios.post('http://event-bus-serv:5000/events',{
                     type:'CommentModerated',
                     data:{
                         ...data,
@@ -35,4 +36,4 @@ app.post('/events',(req,res)=>{
     res.json({msg:'OK'});
 })
 
-app.listen(5003, ()=>console.log("statrted at 5003"));
+app.listen(5003, ()=>console.log("statrted at 5003 hello"));
