@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-depl
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: client
+
+  template:
+    metadata:
+      labels:
+        app: client
+    
+    spec:
+      containers:
+      - name: client
+        image: sadabkhan/client:latest
+        imagePullPolicy: Always
+
+
+#client updating the image used by sadabkhan/client:latest steps are
+# 1-> the deployment must used the :latest tag in the (template)pod spec section
+# 2-> rebuild the image and push into docker hub using :latest tag
+# 3-> run the command kubectl rollout restart deployment [depl_name]
+# --- used to seprate object both are diffrent obj
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: client-srv
+
+spec:
+  #type: ClusterIp default type no need to mention
+  selector:
+    app: client
+  
+  ports:
+    - name: client
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

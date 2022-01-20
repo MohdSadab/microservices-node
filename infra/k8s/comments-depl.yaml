@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: comments-depl
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: comments
+
+  template:
+    metadata:
+      labels:
+        app: comments
+    
+    spec:
+      containers:
+      - name: comments
+        image: sadabkhan/comments:latest
+        imagePullPolicy: Always
+
+
+#comments updating the image used by sadabkhan/comments:latest steps are
+# 1-> the deployment must used the :latest tag in the (template)pod spec section
+# 2-> rebuild the image and push into docker hub using :latest tag
+# 3-> run the command kubectl rollout restart deployment [depl_name]
+# --- used to seprate object both are diffrent obj
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: comments-srv
+
+spec:
+  #type: ClusterIp default type no need to mention
+  selector:
+    app: comments
+  
+  ports:
+    - name: comments
+      protocol: TCP
+      port: 5001
+      targetPort: 5001

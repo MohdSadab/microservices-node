@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: query-depl
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: query
+
+  template:
+    metadata:
+      labels:
+        app: query
+    
+    spec:
+      containers:
+      - name: query
+        image: sadabkhan/query:latest
+        imagePullPolicy: Always
+
+
+#comments updating the image used by sadabkhan/query:latest steps are
+# 1-> the deployment must used the :latest tag in the (template)pod spec section
+# 2-> rebuild the image and push into docker hub using :latest tag
+# 3-> run the command kubectl rollout restart deployment [depl_name]
+# --- used to seprate object both are diffrent obj
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: query-srv
+
+spec:
+  #type: ClusterIp default type no need to mention
+  selector:
+    app: query
+  
+  ports:
+    - name: query
+      protocol: TCP
+      port: 5002
+      targetPort: 5002
