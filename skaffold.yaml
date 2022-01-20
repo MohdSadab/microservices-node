@@ -1,0 +1,63 @@
+apiVersion: skaffold/v2beta10
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+      - ./infra/k8s/*
+build:
+  local:
+    push: false
+  artifacts:
+    - image: sadabkhan/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.js'   #changes of files inside src folder copies directly into pods 
+            dest: .
+
+    - image: sadabkhan/posts
+      context: posts
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: '*.js'   #changes of files inside src folder copies directly into pods 
+            dest: .
+    
+    - image: sadabkhan/comments
+      context: comments
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: '*.js'   #changes of files inside src folder copies directly into pods 
+            dest: .
+
+    - image: sadabkhan/event-bus
+      context: event-bus
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: '*.js'   #changes of files inside src folder copies directly into pods 
+            dest: .
+    
+    - image: sadabkhan/query
+      context: query
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: '*.js'   #changes of files inside src folder copies directly into pods 
+            dest: .
+
+    - image: sadabkhan/moderation
+      context: moderation
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: '*.js'   #changes of files inside src folder copies directly into pods 
+            dest: .

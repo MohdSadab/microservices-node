@@ -18,7 +18,7 @@ spec:
       containers:
       - name: comments
         image: sadabkhan/comments:latest
-        imagePullPolicy: Always
+        # imagePullPolicy: Always
 
 
 #comments updating the image used by sadabkhan/comments:latest steps are

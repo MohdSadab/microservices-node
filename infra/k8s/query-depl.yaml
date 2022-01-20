@@ -18,7 +18,7 @@ spec:
       containers:
       - name: query
         image: sadabkhan/query:latest
-        imagePullPolicy: Always
+        # imagePullPolicy: Always
 
 
 #comments updating the image used by sadabkhan/query:latest steps are

@@ -18,7 +18,7 @@ spec:
       containers:
       - name: client
         image: sadabkhan/client:latest
-        imagePullPolicy: Always
+        # imagePullPolicy: Always
 
 
 #client updating the image used by sadabkhan/client:latest steps are
